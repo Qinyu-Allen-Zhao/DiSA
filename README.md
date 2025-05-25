@@ -194,7 +194,7 @@ If you find our work useful, please consider citing:
 ```bibtex
 @article{zhao2025disa,
   title={DiSA: Diffusion Step Annealing in Autoregressive Image Generation},
-  author={Zhao, Qinyu and Singh, Jaskirat and Xu, Ming and Gupta, Kartik and Asthana, Akshay and Gould, Stephen and Zheng, Liang},
+  author={Zhao, Qinyu and Singh, Jaskirat and Xu, Ming and Asthana, Akshay and Gould, Stephen and Zheng, Liang},
   year={2025},
   journal={arXiv preprint},
 }
