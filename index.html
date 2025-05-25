@@ -29,7 +29,7 @@ h2 {
     font-size: 1.75em;
 }
 a:link,a:visited {
-    color: #0E710E;
+    color: #1E3A8A;
     text-decoration: none;
 }
 a:hover {
@@ -170,7 +170,7 @@ figure {
     padding: 16px;
 }
 .green {
-    color: #0E710E;
+    color: #1E3A8A;
     font-weight: bold;
 }
 .orange {
@@ -396,108 +396,111 @@ blockquote {
 <div class="container">
     <div class="paper-title">
     <h1>
-        <font color="#0E710E">Di</font>ffusion <font color="#0E710E">S</font>tep <font color="#0E710E">A</font>nnealing:
-        Accelerating Autoregressive Image Generation
+        <font color="#1E3A8A">DiSA</font>: <font color="#1E3A8A">Di</font>ffusion <font color="#1E3A8A">S</font>tep <font color="#1E3A8A">A</font>nnealing in Autoregressive Image Generation
     </h1>
     </div>
 
     <div id="authors">
-        <center>
-            <div class="author-row-new">
-                <a href="#">Your Name<sup>1</sup></a>
-            </div>
-        </center>
-        <center>
-        <div class="affiliations">
-            <span><sup>1</sup>Your Institution</span>
-        </div>
-            <div class="affil-row">
-            <div class="venue text-center"><b>Conference Year</b></div>
-        </div>
-        </center>
+        <p align="center">
+            <a href="https://www.linkedin.com/in/qinyu-zhao/" target="_blank">Qinyu&nbsp;Zhao</a><sup>1</sup> &ensp; <b>&middot;</b> &ensp;
+            <a href="https://1jsingh.github.io/" target="_blank">Jaskirat&nbsp;Singh</a><sup>1</sup> &ensp; <b>&middot;</b> &ensp;
+            <a href="https://www.linkedin.com/in/ming-xu-2a21a754" target="_blank">Ming&nbsp;Xu</a><sup>1</sup> &ensp; <b>&middot;</b> &ensp;
+            <a href="https://www.linkedin.com/in/akshayasthana" target="_blank">Akshay&nbsp;Asthana</a><sup>2</sup>&ensp; <b>&middot;</b> &ensp;
+            <a href="https://users.cecs.anu.edu.au/~sgould/" target="_blank">Stephen&nbsp;Gould</a><sup>1</sup>&ensp; <b>&middot;</b> &ensp;
+            <a href="https://zheng-lab-anu.github.io/" target="_blank">Liang&nbsp;Zheng</a><sup>1</sup>&ensp;
+          </p>
+          
+          <p align="center">
+            <sup>1</sup> Australian National University &emsp; <sup>2</sup>Seeing Machines &emsp; <br>
+          </p>
+          
 
         <div style="clear: both">
             <div class="paper-btn-parent">
-                <a class="paper-btn" href="#">
+                <a class="paper-btn" href="">
                     <span class="fas fa-file-alt"></span> 
                     Paper
                 </a>   
-                <a class="github-btn" href="#">
+                <a class="github-btn" href="https://github.com/Qinyu-Allen-Zhao/DiSA">
                     <span class="fab fa-github"></span> 
                     Code
                 </a>           
            </div>
         </div>
-        <div class="figure">
-            <img src="assets/overview.jpg" alt="Overview of our method">
-        </div>    
     </div>
 
     <section>
         <h2>Overview</h2>
         <hr>
         <p>
-            Recent autoregressive models like MAR, FlowAR, xAR, and Harmon have adopted diffusion sampling to enhance image generation quality. 
-            However, this approach typically requires 50-100 diffusion steps per token, leading to significant computational overhead.
+            Recent autoregressive models like MAR, FlowAR, xAR, and Harmon adopt diffusion sampling in image generation. Their architectures are shown in the figure below.
+            This approach improves the generation quality but leads to slow inference speed, because it usually requires 50-100 diffusion steps per token.
         </p>    
 
-        <p>
-            We introduce Diffusion Step Annealing (DiSA), a training-free method that addresses this efficiency challenge by:
-        </p>
-        <p>
-            <blockquote>    
-                <p>
-                Gradually reducing diffusion steps as more tokens are generated, achieving 2.5× speedup while maintaining generation quality.
-                </p>
-            </blockquote>    
-        </p>
-
-        <div class="image-grid">
-            <img src="assets/evidence1.png" alt="Evidence 1">
-            <img src="assets/evidence2_and_3.png" alt="Evidence 2 and 3">
+        <div class="figure">
+            <img src="assets/overview.png" alt="Overview of our method">
         </div>    
+
+        <p>
+            We introduce Diffusion Step Annealing (<font color="#1E3A8A">DiSA</font>), a training-free method.
+            DiSA gradually reduces the number of diffusion steps as more tokens are generated, achieving significant speedup while maintaining generation quality, as shown in (e).
+        </p>
     </section>
 
     <section>
-        <h2>Key Insights</h2>
+        <h2>Key Insight</h2>
         <hr>
         <p>
-            Our approach is motivated by the observation that as more tokens are generated, subsequent tokens follow more constrained distributions:
+            As more tokens are generated during the autoregressive process, subsequent tokens follow more constrained distributions and are easier to sample.
         </p>
         <ul>
-            <li>Next tokens become more predictable in later generation stages</li>
-            <li>Token variance decreases in later autoregressive steps</li>
-            <li>Diffusion paths become straighter in later stages</li>
-        </ul>
+            <li>Evidence 1: Next tokens can be well predicted in later generation stages.</li>
+            <div class="figure">
+                <img src="assets/evidence1.png" alt="Evidence 1">
+            </div>    
 
+            <li>Evidence 2: Next tokens have lower variance at later autoregressive steps, as shown in (a) and (b).</li>
+            <div class="figure">
+                <img src="assets/evidence2_and_3.png" alt="Evidence 2 and 3">
+            </div>    
+
+            <li>Evidence 3: Diffusion paths at later stages are closer to straight lines, as shown in (c) above.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Results</h2>
+        <hr>
+        <p>
+            DiSA achieves significant speedups while maintaining generation quality
+        </p>
         <div class="figure">
             <img src="assets/tradeoff.png" alt="Speed-Quality Trade-off">
         </div>
-
-        <h3>Results</h3>
+        
         <p>
-            DiSA achieves significant speedups while maintaining generation quality:
+            For MAR-H and Harmon-1.5B, we present the samples generated using DiSA.
         </p>
-        <ul>
-            <li>2.5× speedup for FlowAR</li>
-            <li>1.6× speedup for xAR</li>
-            <li>Similar quality images with fewer diffusion steps</li>
-        </ul>
-
         <div class="figure">
-            <img src="assets/examples.png" alt="Generation Examples">
+            <img src="assets/examples1.png" alt="Generation Examples">
+        </div>
+        <p>
+            For FlowAR and xAR, each image pair is generated with the same random seed, where the first is generated without DiSA while the other is with DiSA.
+        </p>
+        <div class="figure">
+            <img src="assets/examples2.png" alt="Generation Examples">
         </div>
     </section>
 
     <section id="bibtex">
         <h2>Citation</h2>
         <hr>
-        <pre><code>@inproceedings{your2024paper,
-    title={Diffusion Step Annealing: Accelerating Autoregressive Image Generation},
-    author={Your Name},
-    year={2024},
-    booktitle={Conference Name},
-}</code></pre>
+        <pre><code>@article{zhao2025disa,
+            title={DiSA: Diffusion Step Annealing in Autoregressive Image Generation},
+            author={Zhao, Qinyu and Singh, Jaskirat and Xu, Ming and Gupta, Kartik and Asthana, Akshay and Gould, Stephen and Zheng, Liang},
+            year={2025},
+            journal={arXiv preprint},
+          }</code></pre>
     </section>
 
 </div>
