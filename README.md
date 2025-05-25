@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <sup>1</sup> Australian National University &emsp; <sup>2</sup>Seeing Machines &emsp; <br>
+  <sup>1</sup> Australian National University &emsp; <sup>2</sup> Seeing Machines &emsp; <br>
 </p>
 
 <p align="center">
