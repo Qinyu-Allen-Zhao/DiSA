@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <a href="">🌐 Project Page</a> &ensp;
+  <a href="https://qinyu-allen-zhao.github.io/DiSA/">🌐 Project Page</a> &ensp;
   <a href="">📃 Paper</a> &ensp;
   <br><br>
 </p>
