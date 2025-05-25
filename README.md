@@ -19,15 +19,12 @@
   <br><br>
 </p>
 
-![](assets/overview.jpg)
-
 ## Overview
-An increasing number of autoregressive models, such as MAR, FlowAR, xAR, and Harmon adopt diffusion sampling to improve the quality of image generation. However, this strategy leads to low inference efficiency, because it usually takes 50 to 100 steps for diffusion to sample a token. 
+Recent autoregressive models like MAR, FlowAR, xAR, and Harmon adopt diffusion sampling to improve the quality of image generation. However, this approach leads to slow inference speed, because it usually requires 50-100 diffusion steps per token. We introduce Diffusion Step Annealing (**DiSA**), a training-free method which gradually reduces the number of diffusion steps as more tokens are generated, achieving significant speedup while maintaining generation quality, as shown below.
 
-Our project explores how to effectively address this issue.
-Our key motivation is that **as more tokens are generated during the autoregressive process, subsequent tokens follow more constrained distributions and are easier to sample.** To intuitively explain, if a model has generated part of a dog, the remaining tokens must complete the dog and thus are more constrained. Empirical evidence supports our motivation: at later generation stages, the next tokens can be well predicted by a multilayer perceptron, exhibit low variance, and follow closer-to-straight-line denoising paths from noise to tokens.
-
-Based on our finding, we introduce diffusion step annealing (**DiSA**), a training-free method which gradually uses fewer diffusion steps as more tokens are generated, \eg using 50 steps at the beginning and gradually decreasing to 5 steps at later stages. Because DiSA is derived from our finding specific to diffusion in autoregressive models, it is complementary to existing acceleration methods designed for diffusion alone. DiSA can be implemented in only a few lines of code on existing models, and albeit simple, achieves $5-10\times$ faster inference for MAR and Harmon and $1.4-2.5\times$ for FlowAR and xAR, while maintaining the generation quality.
+<div class="figure" style="width: 80%; margin: 0 auto;">
+            <img src="assets/speedup.png" alt="Speedup of DiSA">
+</div>
 
 ## News and Updates
 **[2025-05-25]** Initial Release with Codebase.
