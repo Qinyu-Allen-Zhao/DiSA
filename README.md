@@ -22,9 +22,9 @@
 ## Overview
 Recent autoregressive models like MAR, FlowAR, xAR, and Harmon adopt diffusion sampling to improve the quality of image generation. However, this approach leads to slow inference speed, because it usually requires 50-100 diffusion steps per token. We introduce Diffusion Step Annealing (**DiSA**), a training-free method which gradually reduces the number of diffusion steps as more tokens are generated, achieving significant speedup while maintaining generation quality, as shown below.
 
-<div class="figure" style="width: 80%; margin: 0 auto;">
-            <img src="assets/speedup.png" alt="Speedup of DiSA">
-</div>
+<p align="center">
+  <img src="assets/speedup.png" width="80%">
+</p>
 
 ## News and Updates
 **[2025-05-25]** Initial Release with Codebase.
