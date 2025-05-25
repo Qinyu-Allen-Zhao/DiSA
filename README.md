@@ -19,11 +19,13 @@
   <br><br>
 </p>
 
-## Overview
-An increasing number of autoregressive models, such as MAR, FlowAR, xAR, and Harmon adopt diffusion sampling to improve the quality of image generation. However, this strategy leads to low inference efficiency, because it usually takes 50 to 100 steps for diffusion to sample a token. This paper explores how to effectively address this issue.
-Our key motivation is that **as more tokens are generated during the autoregressive process, subsequent tokens follow more constrained distributions and are easier to sample.** To intuitively explain, if a model has generated part of a dog, the remaining tokens must complete the dog and thus are more constrained. Empirical evidence supports our motivation: at later generation stages, the next tokens can be well predicted by a multilayer perceptron, exhibit low variance, and follow closer-to-straight-line denoising paths from noise to tokens. 
-
 ![](assets/overview.jpg)
+
+## Overview
+An increasing number of autoregressive models, such as MAR, FlowAR, xAR, and Harmon adopt diffusion sampling to improve the quality of image generation. However, this strategy leads to low inference efficiency, because it usually takes 50 to 100 steps for diffusion to sample a token. 
+
+Our project explores how to effectively address this issue.
+Our key motivation is that **as more tokens are generated during the autoregressive process, subsequent tokens follow more constrained distributions and are easier to sample.** To intuitively explain, if a model has generated part of a dog, the remaining tokens must complete the dog and thus are more constrained. Empirical evidence supports our motivation: at later generation stages, the next tokens can be well predicted by a multilayer perceptron, exhibit low variance, and follow closer-to-straight-line denoising paths from noise to tokens.
 
 Based on our finding, we introduce diffusion step annealing (**DiSA**), a training-free method which gradually uses fewer diffusion steps as more tokens are generated, \eg using 50 steps at the beginning and gradually decreasing to 5 steps at later stages. Because DiSA is derived from our finding specific to diffusion in autoregressive models, it is complementary to existing acceleration methods designed for diffusion alone. DiSA can be implemented in only a few lines of code on existing models, and albeit simple, achieves $5-10\times$ faster inference for MAR and Harmon and $1.4-2.5\times$ for FlowAR and xAR, while maintaining the generation quality.
 
@@ -34,7 +36,7 @@ Based on our finding, we introduce diffusion step annealing (**DiSA**), a traini
 ### 1. Environment Setup
 To set up our environment, please run:
 
-```bash
+```
 git clone https://github.com/Qinyu-Allen-Zhao/DiSA.git
 cd DiSA
 conda env create -f environment.yml -y
@@ -94,7 +96,7 @@ main_mar.py \
 #### 3.2 FlowAR
 
 Evaluate FlowAR-S with classifier-free guidance:
-```python
+```
 torchrun --nproc_per_node=4 \
 eval.py \
 --model flowar_small --diffloss_d 2 --diffloss_w 1024 \
@@ -105,7 +107,7 @@ eval.py \
 ```
 
 Evaluate FlowAR-L with classifier-free guidance:
-```python
+```
 torchrun --nproc_per_node=4 \
 eval.py \
 --model flowar_large --diffloss_d 12 --diffloss_w 1024 \
@@ -116,7 +118,7 @@ eval.py \
 ```
 
 Evaluate FlowAR-H with classifier-free guidance:
-```python
+```
 torchrun --nproc_per_node=4 \
 eval.py \
 --model flowar_huge --diffloss_d 12 --diffloss_w 1536 \
@@ -131,7 +133,7 @@ eval.py \
 
 #### 3.3 xAR
 Evaluate xAR-B with classifier-free guidance:
-```puthon
+```
 torchrun --nproc_per_node=4 \
 eval.py \
 --model xar_base \
@@ -143,7 +145,7 @@ eval.py \
 ```
 
 Evaluate xAR-L with classifier-free guidance:
-```puthon
+```
 torchrun --nproc_per_node=4 \
 eval.py \
 --model xar_large \
@@ -155,7 +157,7 @@ eval.py \
 ```
 
 Evaluate xAR-H with classifier-free guidance:
-```puthon
+```
 torchrun --nproc_per_node=4 \
 eval.py \
 --model xar_huge \
@@ -173,6 +175,7 @@ eval.py \
 Run Harmon with DiSA using the following command:
 ```
 export PYTHONPATH=./:$PYTHONPATH
+
 python scripts/text2image.py \
 configs/models/qwen2_5_1_5b_kl16_mar_h_disa_50_5.py \
 --checkpoint checkpoints/harmon_1.5b.pth  --image_size 512 \
