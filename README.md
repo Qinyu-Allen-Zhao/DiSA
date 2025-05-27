@@ -15,7 +15,7 @@
 
 <p align="center">
   <a href="https://qinyu-allen-zhao.github.io/DiSA/">🌐 Project Page</a> &ensp;
-  <a href="">📃 Paper</a> &ensp;
+  <a href="https://arxiv.org/abs/2505.20297">📃 Paper</a> &ensp;
   <br><br>
 </p>
 
@@ -196,6 +196,6 @@ If you find our work useful, please consider citing:
   title={DiSA: Diffusion Step Annealing in Autoregressive Image Generation},
   author={Zhao, Qinyu and Singh, Jaskirat and Xu, Ming and Asthana, Akshay and Gould, Stephen and Zheng, Liang},
   year={2025},
-  journal={arXiv preprint},
+  journal={arXiv preprint arXiv:2505.20297},
 }
 ```
